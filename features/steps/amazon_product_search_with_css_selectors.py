@@ -15,7 +15,7 @@ def home_page_of_amazon(context):
 
 @when("Navigate to the Search Bar and input {search_query}")
 def search_for_item(context, search_query):
-    context.app.main_page.input_amazon_search(search_query) # Keys.ENTER)
+    context.app.main_page.input_amazon_search(search_query)  # Keys.ENTER)
 
 
 @when("Click on Amazon Search Icon")
@@ -25,15 +25,12 @@ def click_on_search_icon(context):
 
 @then("Verify {search_result} is on Amazon Page")
 def is_search_matching(context, search_result):
-    actual_text = context.driver.find_element(*SEARCH_RESULT).text  # Have to use XPath hence CSS Selector
-    # not working with linking to the text
-    assert search_result == actual_text, f"Expected text was {search_result}, but the actual is {actual_text}"
+    context.app.search_result_page.verify_search_result(search_result)
 
 
 @then("Verify url contains {search_query}")
 def is_url(context, search_query):
-    actual_url = context.driver.current_url
-    assert search_query in actual_url, f"Expected word in url is {search_query} is missing"
+    context.app.search_result_page.verify_url_contains(search_query)
 
 
 @then('Verify Cart has {num} items in it')
