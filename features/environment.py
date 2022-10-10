@@ -1,22 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.service import Service
 from selenium.webdriver.support.wait import WebDriverWait
-
+from app.application import Application
 
 def browser_init(context):
     """
     :param context: Behave context
     """
-
-    start_chrome = Service('/Users/mikesoloman/Desktop/Python_Amazon_Automation/chromedriver')
-    context.driver = webdriver.Chrome(executable_path= "/Users/mikesoloman/Desktop/Python_Amazon_Automation"
-                                                       "/chromedriver")
+    context.driver = webdriver.Chrome(executable_path= "/Users/mikesoloman/Desktop/amazon_selenium_automatio"
+                                                       "n_Page_Object_Model/chromedriver")
     # context.browser = webdriver.Safari()
     # context.browser = webdriver.Firefox()
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(2)
-    context.driver.wait = WebDriverWait(context.driver, 2)
+    context.driver.wait = WebDriverWait(context.driver, 3)
+    context.app = Application(context.driver)
 
 
 def before_scenario(context, scenario):

@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from behave import given, when, then
 
 AMAZON_HOME_PAGE = 'https://www.amazon.com'
@@ -11,19 +10,17 @@ ITEMS_IN_CART = (By.XPATH, "//div[@id='nav-cart-count-container']/ span[@id='nav
 
 @given('Go to Amazon Home Page')
 def home_page_of_amazon(context):
-    context.driver.get(AMAZON_HOME_PAGE)
+    context.app.main_page.open_main_page()
 
 
 @when("Navigate to the Search Bar and input {search_query}")
 def search_for_item(context, search_query):
-    search_field = context.driver.find_element(*SEARCH_BAR)
-    search_field.clear()
-    search_field.send_keys(search_query)  # Keys.ENTER)
+    context.app.main_page.input_amazon_search(search_query) # Keys.ENTER)
 
 
 @when("Click on Amazon Search Icon")
 def click_on_search_icon(context):
-    context.driver.find_element(*SEARCH_ICON).click()
+    context.app.main_page.click_on_search_icon()
 
 
 @then("Verify {search_result} is on Amazon Page")
